@@ -1,26 +1,27 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
+import { StackNavigator } from "react-navigation";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
 
-export default class App extends Component<{}> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to PettyCase!</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
+import { store, persistor } from "./Store";
+import HomeScreen from "./Home";
+import DetailsScreen from "./Details";
+import { withParamsToProps } from "./Utils";
+const StackApp = StackNavigator(
+  {
+    Home: { screen: withParamsToProps(HomeScreen) },
+    Details: { screen: withParamsToProps(DetailsScreen) }
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  }
-});
+  { navigationOptions: { title: "PettyCase" } }
+);
+
+const ReduxApp = () => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <StackApp />
+    </PersistGate>
+  </Provider>
+);
+
+export default ReduxApp;
