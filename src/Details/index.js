@@ -10,22 +10,29 @@ class DetailsScreen extends Component {
   componentDidMount() {
     let { _fetchCase, cases, id } = this.props;
     const isContains = cases.filter(sc => sc.scid == id).length > 0;
-    console.log(isContains);
-
     !isContains ? _fetchCase(id) : "";
   }
 
   render() {
-    let { isLoading, isSuccess, isError } = this.props;
+    let { isLoading, isSuccess, isError, id, cases } = this.props;
+    let smallCase = cases.find(sc => sc.scid == id);
     return (
       <View style={styles.container}>
-        {isError ? <Error /> : isLoading ? <Loader /> : <CaseDetails />}
+        {isError ? (
+          <Error />
+        ) : isLoading ? (
+          <Loader />
+        ) : smallCase ? (
+          <CaseDetails smallCase={smallCase} />
+        ) : (
+          <Error />
+        )}
       </View>
     );
   }
 }
 const mapStateToProps = ({ Cases }) => {
-  let { cases, isLoa } = Cases;
+  let { cases, isLoading, isSuccess, isError } = Cases;
   return { cases };
 };
 

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, NetInfo } from "react-native";
 import { StackNavigator } from "react-navigation";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 
 import { store, persistor } from "./Store";
+import { setIsConnected } from "./Store/Actions/CaseActions";
 import HomeScreen from "./Home";
 import DetailsScreen from "./Details";
 import { withParamsToProps } from "./Utils";
@@ -16,10 +17,45 @@ const StackApp = StackNavigator(
   { navigationOptions: { title: "PettyCase" } }
 );
 
+class App extends Component {
+  componentDidMount() {
+    NetInfo.isConnected
+      .fetch()
+      .then()
+      .done(() => {
+        NetInfo.isConnected.addEventListener("connectionChange", isConnected =>
+          this.changeIsConnected(isConnected)
+        );
+      });
+  }
+  changeIsConnected = isConnected => {
+    let { _setIsConnected } = this.props;
+    console.log("connection changed");
+    _setIsConnected(isConnected);
+  };
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener("connectionChange", isConnected =>
+      this.changeIsConnected(isConnected)
+    );
+  }
+  render() {
+    return <StackApp />;
+  }
+}
+
+const mapStateToProps = ({ Cases }) => {
+  let { cases, isConnected } = Cases;
+  return { cases, isConnected };
+};
+const mapDispatchToProps = (dispatch, props) => ({
+  _setIsConnected: isConnected => dispatch(setIsConnected(isConnected))
+});
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+
 const ReduxApp = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <StackApp />
+      <ConnectedApp />
     </PersistGate>
   </Provider>
 );

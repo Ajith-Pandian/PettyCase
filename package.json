@@ -7,12 +7,17 @@
     "test": "jest"
   },
   "dependencies": {
+    "immutability-helper": "^2.6.4",
+    "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "react": "16.2.0",
     "react-native": "0.52.2",
+    "react-native-charts-wrapper": "^0.4.1",
     "react-native-gridview": "^0.1.1",
     "react-native-snackbar": "^0.4.4",
     "react-native-super-grid": "^2.0.2",
+    "react-native-svg": "^6.0.1-rc.3",
+    "react-native-svg-charts": "^2.2.2",
     "react-navigation": "^1.0.0-beta.27",
     "react-persist": "^1.0.2",
     "react-redux": "^5.0.6",

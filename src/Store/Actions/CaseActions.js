@@ -5,7 +5,7 @@ import {
   SET_IS_CONNECTED
 } from "../ActionNames";
 import ApiHelper from "../../ApiHelper";
-import { getCaseFromJson } from "../../Utils";
+import { getCaseFromJson, showSnackBar } from "../../Utils";
 
 export const fetchCase = id => dispatch => {
   dispatch(_fetchCase());
@@ -16,8 +16,10 @@ export const fetchCase = id => dispatch => {
   });
 };
 
-export const setIsConnected = isConnected => dispatch =>
+export const setIsConnected = isConnected => dispatch => {
   dispatch(_setIsConnected(isConnected));
+  showSnackBar(isConnected);
+};
 
 function _fetchCase() {
   return {
