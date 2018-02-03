@@ -17,6 +17,12 @@ export default class ApiHelper {
       return res;
     });
   }
+  static getHistory(id) {
+    return Api.get(historicalDataUrl(id)).then(res => {
+      console.log(res);
+      return res;
+    });
+  }
   static getImageUrl(caseId, size) {
     return imageUrl(caseId, size);
   }

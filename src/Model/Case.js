@@ -1,26 +1,29 @@
-import moment from "moment";
-
-export default class Notes {
+export default class Case {
   constructor(
     scid,
     constituents,
-    description,
-    time = new Date(),
-    isFavorite = false,
-    isHearted = false,
-    isPoem = false,
-    isStory = false
+    rationale,
+    flags,
+    info,
+    keywords,
+    newsTag,
+    segments,
+    stats,
+    updates,
+    version,
+    history = []
   ) {
-    scid,
-      constituents,
-      flags,
-      info,
-      keywords,
-      newsTag,
-      rationale,
-      segments,
-      stats,
-      updates,
-      version;
+    this.scid = scid;
+    this.constituents = constituents;
+    this.rationale = rationale;
+    this.flags = flags;
+    this.info = info;
+    this.keywords = keywords;
+    this.newsTag = newsTag;
+    this.segments = segments;
+    this.stats = stats;
+    this.updates = updates;
+    this.version = version;
+    this.history = history;
   }
 }

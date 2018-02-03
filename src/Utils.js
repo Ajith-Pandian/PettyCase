@@ -19,4 +19,36 @@ export const showSnackBar = isConnected => {
     : Snackbar.LENGTH_INDEFINITE;
   Snackbar.show({ title, duration });
 };
-export const getCaseFromJson = (id, {}) => new Case(id);
+
+export function getCaseFromJson(smallCase) {
+  let {
+    scid,
+    constituents,
+    rationale,
+    flags,
+    info,
+    keywords,
+    newsTag,
+    segments,
+    stats,
+    updates,
+    version
+  } = smallCase;
+  const newCase = new Case(
+    scid,
+    constituents,
+    rationale,
+    flags,
+    info,
+    keywords,
+    newsTag,
+    segments,
+    stats,
+    updates,
+    version
+  );
+  console.log("====================================");
+  console.log(newCase);
+  console.log("====================================");
+  return newCase;
+}

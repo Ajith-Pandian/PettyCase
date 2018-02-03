@@ -1,13 +1,20 @@
 import React from "react";
 import { View, Text, Image, ScrollView, WebView } from "react-native";
 import ApiHelper from "../ApiHelper";
-import { ITEM_HEIGHT, ITEM_WIDTH } from "../Constants";
+import { ITEM_HEIGHT, ITEM_WIDTH, SCREEN_WIDTH } from "../Constants";
 import LineChartScreen from "./Chart";
+
+import HTML from "react-native-render-html";
+
 const CaseDetails = ({ smallCase }) => {
   console.log(smallCase);
-  const imageUrl = ApiHelper.getImageUrl(smallCase.scid);
+  const { scid, rationale, history } = smallCase;
+  const imageUrl = ApiHelper.getImageUrl(scid);
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ padding: 10, backgroundColor: "white" }}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -35,9 +42,14 @@ const CaseDetails = ({ smallCase }) => {
         </View>
       </View>
       <View>
-        <Text>Historical</Text>
+        <Text>Rationale</Text>
+        <HTML html={rationale} imagesMaxWidth={SCREEN_WIDTH - 20} />
       </View>
-      <LineChartScreen />
+      {history ? (
+        <LineChartScreen history={history} />
+      ) : (
+        <Text>No history</Text>
+      )}
     </ScrollView>
   );
 };

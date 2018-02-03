@@ -2,7 +2,9 @@ import { Dimensions, PixelRatio, Platform } from "react-native";
 
 const isIos = Platform.OS === "ios";
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get(
+  "window"
+);
 export const ITEM_WIDTH = SCREEN_WIDTH * 0.35;
 export const ITEM_HEIGHT = SCREEN_HEIGHT * 0.3;
 
