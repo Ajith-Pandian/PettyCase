@@ -10,17 +10,14 @@ import {
 import ApiHelper from "../../ApiHelper";
 import { getCaseFromJson, showSnackBar } from "../../Utils";
 
-export const fetchCase = id => (dispatch, getState) => {
-  let { isConnected } = getState().Cases;
-  if (isConnected) {
-    dispatch(_fetchCase());
-    ApiHelper.getCase(id).then(res => {
-      if (res && res.success) {
-        dispatch(_fetchCaseSuccess(getCaseFromJson(res.data)));
-        dispatch(fetchHistory(id));
-      } else dispatch(_fetchCaseFailure());
-    });
-  } else dispatch(_fetchCaseFailure());
+export const fetchCase = id => dispatch => {
+  dispatch(_fetchCase());
+  ApiHelper.getCase(id).then(res => {
+    if (res && res.success) {
+      dispatch(_fetchCaseSuccess(getCaseFromJson(res.data)));
+      dispatch(fetchHistory(id));
+    } else dispatch(_fetchCaseFailure());
+  });
 };
 
 function _fetchCase() {
