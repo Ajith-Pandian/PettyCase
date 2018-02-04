@@ -1,9 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Styles from "../Styles";
 
-const Ranks = ({ featuredRank, popularRank }) => (
-  <View style={[Styles.sRow, Styles.sCardContainer]}>
+import Styles from "../Styles";
+import { GREEN, RED } from "../Constants";
+
+const Ranks = ({ featuredRank, popularRank, active }) => (
+  <View style={[Styles.sRow, Styles.sCardContainer, { height: 40 }]}>
     {featuredRank ? (
       <Text>
         <Text style={Styles.sRankHeader}>FEATURED : </Text>
@@ -16,6 +18,9 @@ const Ranks = ({ featuredRank, popularRank }) => (
         <Text>{popularRank}</Text>
       </Text>
     ) : null}
+    <Text style={{ color: active ? GREEN : RED, fontWeight: "700" }}>
+      {active ? "ACTIVE" : "INACTIVE"}
+    </Text>
   </View>
 );
 
