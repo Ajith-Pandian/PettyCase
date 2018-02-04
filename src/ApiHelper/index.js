@@ -8,7 +8,9 @@ const historicalDataUrl = caseId =>
   `${BASE_URL}/smallcases/historical?scid=${caseId}`;
 
 const imageUrl = (caseId, size) =>
-  `https://www.smallcase.com/images/smallcases/187/${caseId}.png`;
+  `https://www.smallcase.com/images/smallcases/${
+    size ? size : 187
+  }/${caseId}.png`;
 
 export default class ApiHelper {
   static getCase(id) {

@@ -11,7 +11,7 @@ export default class Case {
     stats,
     updates,
     version,
-    history = []
+    history
   ) {
     this.scid = scid;
     this.constituents = constituents;

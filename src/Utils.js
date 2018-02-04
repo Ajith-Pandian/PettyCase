@@ -47,8 +47,7 @@ export function getCaseFromJson(smallCase) {
     updates,
     version
   );
-  console.log("====================================");
-  console.log(newCase);
-  console.log("====================================");
   return newCase;
 }
+
+export const isPositive = num => num > 0;

@@ -9,12 +9,22 @@ import { setIsConnected } from "./Store/Actions/CaseActions";
 import HomeScreen from "./Home";
 import DetailsScreen from "./Details";
 import { withParamsToProps } from "./Utils";
+import { PRIMARY, PRIMARY_DARK } from "./Constants";
+
 const StackApp = StackNavigator(
   {
     Home: { screen: withParamsToProps(HomeScreen) },
     Details: { screen: withParamsToProps(DetailsScreen) }
   },
-  { navigationOptions: { title: "PettyCase" } }
+  {
+    navigationOptions: {
+      title: "PettyCase",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: PRIMARY
+      }
+    }
+  }
 );
 
 class App extends Component {

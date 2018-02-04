@@ -13,9 +13,10 @@ import { getCaseFromJson, showSnackBar } from "../../Utils";
 export const fetchCase = id => dispatch => {
   dispatch(_fetchCase());
   ApiHelper.getCase(id).then(res => {
-    res && res.success
-      ? dispatch(_fetchCaseSuccess(getCaseFromJson(res.data)))
-      : dispatch(_fetchCaseFailure());
+    if (res && res.success) {
+      dispatch(_fetchCaseSuccess(getCaseFromJson(res.data)));
+      dispatch(fetchHistory(id));
+    } else dispatch(_fetchCaseFailure());
   });
 };
 

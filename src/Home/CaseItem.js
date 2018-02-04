@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import { ITEM_HEIGHT, ITEM_WIDTH } from "../Constants";
+import ImageLoad from "react-native-image-placeholder";
+
 import ApiHelper from "../ApiHelper";
+import { ITEM_HEIGHT, ITEM_WIDTH, PRIMARY } from "../Constants";
 
 const CaseItem = ({ item, onPress }) => (
   <TouchableOpacity
-    style={{ backgroundColor: "red", height: ITEM_HEIGHT }}
+    style={{ backgroundColor: PRIMARY, height: ITEM_HEIGHT }}
     onPress={() => onPress()}
   >
-    <Image
-      style={{ width: undefined, height: ITEM_HEIGHT, resizeMode: "cover" }}
+    <ImageLoad
+      style={{ width: undefined, height: ITEM_HEIGHT }}
+      loadingStyle={{ color: "transparent" }}
       source={{
         uri: ApiHelper.getImageUrl(item)
       }}

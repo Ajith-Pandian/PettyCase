@@ -7,31 +7,44 @@ import Loader from "./Loader";
 import Error from "./Error";
 
 class DetailsScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    let { state: { params: { name } } } = navigation;
+    return { title: name ? name : "PettyCase" };
+  };
+  componentWillMount() {}
+
   componentDidMount() {
-    let { _fetchCase, _fetchHistory, cases, id } = this.props;
+    let { _fetchCase, _fetchHistory, cases, id, navigation } = this.props;
+
     const isContains = cases.filter(sc => sc.scid == id).length > 0;
-    !isContains ? _fetchCase(id) : "";
-    let smallCase = cases.find(sc => sc.scid == id);
-    const isContainsHistory = isContains && smallCase.history;
-    !isContainsHistory ? _fetchHistory(id) : "";
+    if (isContains) {
+      let smallCase = cases.find(sc => sc.scid == id);
+      !smallCase.history ? _fetchHistory(id) : "";
+      navigation.setParams({ name: smallCase.info.name });
+    } else {
+      _fetchCase(id);
+    }
   }
 
   render() {
-    let { isLoading, isSuccess, isError, id, cases } = this.props;
+    let { isLoading, isSuccess, isError, id, cases, navigation } = this.props;
     let smallCase = cases.find(sc => sc.scid == id);
     return (
       <View style={styles.container}>
-        {smallCase ? (
-          <CaseDetails smallCase={smallCase} />
-        ) : isLoading && !isError ? (
+        {isLoading ? (
           <Loader />
-        ) : (
+        ) : isError ? (
           <Error />
+        ) : smallCase ? (
+          <CaseDetails smallCase={smallCase} />
+        ) : (
+          <Loader />
         )}
       </View>
     );
   }
 }
+
 const mapStateToProps = ({ Cases }) => {
   let { cases, isLoading, isSuccess, isError } = Cases;
   return { cases };
