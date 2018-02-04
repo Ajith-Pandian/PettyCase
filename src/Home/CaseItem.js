@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import ImageLoad from "react-native-image-placeholder";
 
 import ApiHelper from "../ApiHelper";

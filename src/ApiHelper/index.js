@@ -1,5 +1,5 @@
 import Api from "./Api";
-import { BASE_URL, CASE_IDS as caseIds } from "../Constants";
+import { BASE_URL } from "../Constants";
 
 const singleCaseUrl = caseId =>
   `${BASE_URL}/smallcases/smallcase?scid=${caseId}`;

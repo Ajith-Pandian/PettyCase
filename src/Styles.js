@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 import { PRIMARY_DARK } from "./Constants";
 const styles = StyleSheet.create({
+  sContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
+  },
   sCardContainer: {
     backgroundColor: "white",
     borderRadius: 2,

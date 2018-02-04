@@ -35,6 +35,7 @@ const StackApp = StackNavigator(
   }
 );
 
+//Component to check Network Connectivity
 class App extends Component {
   componentDidMount() {
     NetInfo.isConnected
@@ -72,6 +73,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 });
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
+//Status bar with bg color for IOS/Android
 const MyStatusBar = ({ backgroundColor, ...props }) => (
   <View
     style={{

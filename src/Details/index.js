@@ -1,25 +1,30 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { fetchCase, fetchHistory } from "../Store/Actions/CaseActions";
+import { Text, View } from "react-native";
 import { connect } from "react-redux";
+
 import CaseDetails from "./CaseDetails";
 import Loader from "./Loader";
 import Error from "./Error";
+
+import Styles from "../Styles";
+
+import { fetchCase, fetchHistory } from "../Store/Actions/CaseActions";
 
 class DetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     let { state: { params: { name } } } = navigation;
     return { title: name ? name : "PettyCase" };
   };
-  componentWillMount() {}
 
   componentDidMount() {
     let { _fetchCase, _fetchHistory, cases, id, navigation } = this.props;
 
     const isContains = cases.filter(sc => sc.scid == id).length > 0;
     if (isContains) {
+      // Update history if it is not there
       let smallCase = cases.find(sc => sc.scid == id);
       !smallCase.history ? _fetchHistory(id) : "";
+      // Set case name as Toolbar title
       navigation.setParams({ name: smallCase.info.name });
     } else {
       _fetchCase(id);
@@ -30,7 +35,7 @@ class DetailsScreen extends Component {
     let { isLoading, isSuccess, isError, id, cases, navigation } = this.props;
     let smallCase = cases.find(sc => sc.scid == id);
     return (
-      <View style={styles.container}>
+      <View style={Styles.sContainer}>
         {isLoading ? (
           <Loader />
         ) : isError ? (
@@ -56,17 +61,3 @@ const mapDispatchToProps = (dispatch, props) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  }
-});

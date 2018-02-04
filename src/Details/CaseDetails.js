@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  WebView,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
+import { View, ScrollView } from "react-native";
 import ApiHelper from "../ApiHelper";
 
 import Ranks from "./Ranks";
@@ -15,7 +7,6 @@ import Stats from "./Stats";
 import Rationale from "./Rationale";
 import Chart from "./Chart";
 import Updates from "./Updates";
-
 import BottomSticky from "./BottomSticky";
 
 const CaseDetails = ({ smallCase }) => {

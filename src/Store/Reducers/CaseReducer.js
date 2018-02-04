@@ -17,6 +17,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
+  //Following states are not implemented in this app
   isLoadingHistory: false,
   isSuccessHistory: false,
   isErrorHistory: false

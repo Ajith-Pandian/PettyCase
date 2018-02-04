@@ -32,10 +32,7 @@ export default class Api {
       { method: verb },
       params ? { body: formData } : null
     );
-
-    console.log(options);
     options.headers = { ...Api.headers(), token };
-    console.log("url" + url);
     return fetch(url, options)
       .then(response => response.json())
       .then(responseJson => responseJson)

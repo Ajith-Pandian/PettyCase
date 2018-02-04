@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 import ModelAndImage from "./ModelAndImage";
 import Returns from "./ReturnsValue";
 import Index from "./IndexValue";
+
 import Styles from "../Styles";
 
 const Stats = ({ stats, type, image }) => {
