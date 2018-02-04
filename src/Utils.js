@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ToastAndroid } from "react-native";
 import Case from "./Model/Case";
-import Snackbar from "react-native-snackbar";
 
 export const withParamsToProps = Component => {
   return class extends Component {
@@ -11,15 +10,6 @@ export const withParamsToProps = Component => {
       return <Component {...params} {...this.props} />;
     }
   };
-};
-
-export const showSnackBar = isConnected => {
-  let title = isConnected ? "Online" : "Offline";
-  let duration = isConnected
-    ? Snackbar.LENGTH_SHORT
-    : Snackbar.LENGTH_INDEFINITE;
-  Snackbar.show({ title, duration });
-  ToastAndroid.show("Connection " + title, ToastAndroid.SHORT);
 };
 
 export function getCaseFromJson(smallCase) {
