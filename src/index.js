@@ -6,7 +6,8 @@ import {
   View,
   NetInfo,
   ToastAndroid,
-  StatusBar
+  StatusBar,
+  AppState
 } from "react-native";
 import { StackNavigator } from "react-navigation";
 import { Provider, connect } from "react-redux";
@@ -44,13 +45,23 @@ class App extends Component {
   componentDidMount() {
     NetInfo.isConnected
       .fetch()
-      .then()
+      .then(isConnected => this.changeIsConnected(isConnected))
       .done(() => {
         NetInfo.isConnected.addEventListener("connectionChange", isConnected =>
           this.changeIsConnected(isConnected)
         );
       });
+
+    AppState.addEventListener("change", this._handleAppStateChange);
   }
+
+  _handleAppStateChange = nextAppState => {
+    if (nextAppState === "active")
+      NetInfo.isConnected.fetch().then(isConnected => {
+        this.changeIsConnected(isConnected);
+      });
+  };
+
   changeIsConnected = isConnected => {
     let { _setIsConnected } = this.props;
     _setIsConnected(isConnected);
@@ -61,6 +72,7 @@ class App extends Component {
     NetInfo.isConnected.removeEventListener("connectionChange", isConnected =>
       this.changeIsConnected(isConnected)
     );
+    AppState.removeEventListener("change", this._handleAppStateChange);
   }
 
   render() {
