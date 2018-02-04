@@ -17,6 +17,7 @@
     "react-native-image-placeholder": "^1.0.14",
     "react-native-render-html": "^3.7.0",
     "react-native-snackbar": "^0.4.4",
+    "react-native-snackbar-component": "^1.0.8",
     "react-native-super-grid": "^2.0.2",
     "react-native-svg": "^6.0.1-rc.3",
     "react-native-svg-charts": "^2.2.2",

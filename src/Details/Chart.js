@@ -8,7 +8,7 @@ import { SCREEN_WIDTH, PRIMARY_DARK } from "../Constants";
 
 const Chart = props => {
   let { history } = props;
-  const data = history.points.map(point => point.index);
+  const data = history ? history.points.map(point => point.index) : [0, 1];
   return (
     <View style={Styles.sCardContainer}>
       {history ? (

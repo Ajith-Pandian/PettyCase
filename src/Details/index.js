@@ -38,12 +38,12 @@ class DetailsScreen extends Component {
       <View style={Styles.sContainer}>
         {isLoading ? (
           <Loader />
-        ) : isError ? (
-          <Error />
         ) : smallCase ? (
           <CaseDetails smallCase={smallCase} />
+        ) : isError ? (
+          <Error />
         ) : (
-          <Loader />
+          <Error />
         )}
       </View>
     );
@@ -52,7 +52,7 @@ class DetailsScreen extends Component {
 
 const mapStateToProps = ({ Cases }) => {
   let { cases, isLoading, isSuccess, isError } = Cases;
-  return { cases };
+  return { cases, isLoading, isSuccess, isError };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({

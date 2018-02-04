@@ -11,13 +11,16 @@ import {
 import { StackNavigator } from "react-navigation";
 import { Provider, connect } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
+import SnackBar from "react-native-snackbar-component";
+
+import HomeScreen from "./Home";
+import DetailsScreen from "./Details";
+
+import { withParamsToProps, showSnackBar } from "./Utils";
+import { PRIMARY, PRIMARY_DARK } from "./Constants";
 
 import { store, persistor } from "./Store";
 import { setIsConnected } from "./Store/Actions/CaseActions";
-import HomeScreen from "./Home";
-import DetailsScreen from "./Details";
-import { withParamsToProps } from "./Utils";
-import { PRIMARY, PRIMARY_DARK } from "./Constants";
 
 const StackApp = StackNavigator(
   {
@@ -37,6 +40,7 @@ const StackApp = StackNavigator(
 
 //Component to check Network Connectivity
 class App extends Component {
+  state = { isSnackVisible: false };
   componentDidMount() {
     NetInfo.isConnected
       .fetch()
@@ -49,18 +53,26 @@ class App extends Component {
   }
   changeIsConnected = isConnected => {
     let { _setIsConnected } = this.props;
-    console.log("connection changed");
-    ToastAndroid.show("Connection " + isConnected, ToastAndroid.SHORT);
-
     _setIsConnected(isConnected);
+    this.setState({ isSnackVisible: !isConnected });
   };
+
   componentWillUnmount() {
     NetInfo.isConnected.removeEventListener("connectionChange", isConnected =>
       this.changeIsConnected(isConnected)
     );
   }
+
   render() {
-    return <StackApp />;
+    let { isConnected } = this.props;
+    let { isSnackVisible } = this.state;
+    let title = isConnected ? "Online" : "Offline";
+    return (
+      <View style={{ flex: 1 }}>
+        <StackApp />
+        <SnackBar visible={isSnackVisible} textMessage={title} />
+      </View>
+    );
   }
 }
 
